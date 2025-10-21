@@ -1,0 +1,29 @@
+Edge Case Tests:
+
+Insufficient Stamina (Sword/Mace):
+Expected: When stamina is below cost, ability fails gracefully with a message; no HP change; stamina unchanged.
+Actual:   "Too tired/lacks stamina" message printed; opponent HP unchanged; stamina unchanged.
+
+Overkill Clamp (No Negative HP):
+Expected: If target HP is very low (e.g., 3) and Mace lands, HP clamps to 0 (never negative); program stable.
+Actual:   Target HP became 0; no negative values; no crash.
+
+Simultaneous KO → Draw:
+Expected: If both players reach HP ≤ 0 before check, checkVictory() prints draw message, logs event, returns end state.
+Actual:   "Both fighters are down! It's a draw." printed; log recorded "Simultaneous KO → Draw"; duel ended safely.
+
+Many Turn Flips (Stress):
+Expected: 1000 calls to nextTurn() keep Turn strictly in {P1, P2}; no overflow or instability.
+Actual:   Turn alternated stably across all iterations; no anomalies.
+
+Rolling Log Window (Cap = 5):
+Expected: After pushing 8 messages, printLog() shows only the latest 5 (oldest discarded) without errors.
+Actual:   Log displayed last 5 entries only; earlier lines were correctly evicted.
+
+Empty Manager Defensive Calls:
+Expected: With zero players, calling startGame(), nextTurn(), printHUD(), printLog() does not crash; prints safe outputs.
+Actual:   All methods returned safely; printLog() showed placeholder; no division/modulo errors.
+
+Extreme Stat Values:
+Expected: With very high STR and zero DEF, damage application still clamps HP to 0; program remains responsive.
+Actual:   HP clamped to 0; no overflow or instability observed.

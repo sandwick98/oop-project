@@ -1,0 +1,29 @@
+Normal Tests:
+
+Add Players + Start Game:
+Expected: Manager accepts two players; "== New Duel Started ==" prints; HUD shows both fighters; Turn: P1; Log placeholder shown.
+Actual:   Two players added; banner and HUD printed correctly; Turn: P1; "--- No recent actions ---" displayed.
+
+Turn Alternation:
+Expected: After nextTurn() once → Turn: P2; after nextTurn() again → Turn: P1.
+Actual:   Turn toggled P1→P2→P1 exactly as expected.
+
+Warrior Sword (cost 5 STA, +5 dmg):
+Expected: On use, opponent HP decreases (>0); attacker stamina decreases by 5; action line can be logged and printed.
+Actual:   Opponent HP dropped; stamina −5; log showed "W1 used Sword on W2".
+
+Warrior Mace (cost 10 STA, +10 dmg):
+Expected: On use, opponent HP decreases (>0); attacker stamina decreases by 10; action line visible in log.
+Actual:   HP decreased; stamina −10; log included "W1 used Mace on W2".
+
+HUD After Actions:
+Expected: printHUD() shows updated HP values and current Turn consistently without crashing.
+Actual:   HUD reflected reduced HP and correct turn indicator; no crash.
+
+checkVictory (no winner yet):
+Expected: With both HP > 0, checkVictory() indicates the duel continues (no KO/draw message).
+Actual:   No winner message; duel continued normally.
+
+Rolling Log During Normal Play:
+Expected: pushLog() + printLog() display recent actions in order; formatting intact.
+Actual:   Recent actions printed in order; formatting matched expected.
