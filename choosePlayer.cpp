@@ -1,7 +1,7 @@
 #include <iostream>
 #include <limits>
-#include "wizard.h"
-#include "tank.h"
+#include "Wizard.h"
+#include "Tank.h"
 using namespace std;
 
 
