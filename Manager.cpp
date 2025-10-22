@@ -78,26 +78,29 @@ void Manager::printLog() const {
     for (const auto& s : log) cout << s << '\n';                   // each logged action
     cout << "----------------------\n";                             // footer
 }
+
+// METHOD IMPLEMENTATION: runBattle
+// WHAT: executes the full battle between players
 void Manager::runBattle() {
-    if (players.size() < 2) {
+    if (players.size() < 2) {                                 // check there is at least two players
         cout << "Error: Not enough players registered!\n";
         return;
     }
 
     cout << "\n=== Battle Start! ===\n";
-    startGame();  // show initial HUD and reset turn
+    startGame();                                                 // show initial HUD and reset turn
 
-    while (!checkVictory()) {
+    while (!checkVictory()) {               // while no player has won rotate turns between players
         Player* me = current();
         Player* foe = other();
 
         cout << "\nIt's " << me->getName() << "'s turn.\n";
-        cout << "1. Attack\n2. Ability A\n3. Ability B\n4. Defend\n> ";
+        cout << "1. Attack\n2. Ability A\n3. Ability B\n4. Defend\n> "; // let player choose action
 
         int choice;
         cin >> choice;
 
-        if (cin.fail()) {
+        if (cin.fail()) {                                              // if choice is not 1,2,3,4
             cin.clear();
             cin.ignore(1000, '\n');
             cout << "Invalid input! Try again.\n";
@@ -107,24 +110,24 @@ void Manager::runBattle() {
         bool acted = false;
 
         switch (choice) {
-            case 1:
+            case 1: // attack
                 me->attack(foe);
                 pushLog(me->getName() + " attacked " + foe->getName());
                 acted = true;
                 break;
-            case 2:
+            case 2: // first ability
                 if (me->abilityA(foe)) {
                     pushLog(me->getName() + " used Ability A on " + foe->getName());
                     acted = true;
                 }
                 break;
-            case 3:
+            case 3: // second ability
                 if (me->abilityB(foe)) {
                     pushLog(me->getName() + " used Ability B on " + foe->getName());
                     acted = true;
                 }
                 break;
-            case 4:
+            case 4: // defend
                 me->defend();
                 pushLog(me->getName() + " defended");
                 acted = true;
