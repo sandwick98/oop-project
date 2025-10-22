@@ -24,7 +24,7 @@ void Manager::nextTurn() {
 bool Manager::checkVictory() {
     // branch: both down → draw (only meaningful when exactly 2 fighters)
     if (players.size() == 2 &&
-        players[0]->get_hp() <= 0 && players[1]->get_hp() <= 0) {
+        players[0]->getHP() <= 0 && players[1]->getHP() <= 0) {
         cout << "Both fighters are down! It's a draw.\n";          // announce draw
         pushLog("Simultaneous KO → Draw");                         // log event
         printLog();                                                // show log
@@ -33,9 +33,9 @@ bool Manager::checkVictory() {
 
     // branch: single KO → somebody defeated
     for (auto* p : players) {                                      // examine each fighter
-        if (p->get_hp() <= 0) {                                    // KO condition
-            cout << p->get_name() << " has been defeated!\n";      // announce KO
-            pushLog(p->get_name() + " is KO");                     // log event
+        if (p->getHP() <= 0) {                                    // KO condition
+            cout << p->getName() << " has been defeated!\n";      // announce KO
+            pushLog(p->getName() + " is KO");                     // log event
             printLog();                                            // show log
             return true;                                           // duel ends
         }
@@ -49,10 +49,10 @@ bool Manager::checkVictory() {
 void Manager::printHUD() const {
     cout << "\n===== Battle Status =====\n";                        // header
     for (auto* p : players) {                                      // list fighters
-        cout << p->get_name()                                      // Name
-             << " | HP: " << p->get_hp()                           // Health points
-             << " | STR: " << p->get_strength()                    // Strength
-             << " | DEF: " << p->get_defense() << '\n';            // Defense
+        cout << p->getName()                                      // Name
+             << " | HP: " << p->getHP()                           // Health points
+             << " | STR: " << p->getStrength()                    // Strength
+             << " | DEF: " << p->getDefense() << '\n';            // Defense
     }
     cout << "Turn: P" << (turn + 1) << "\n";                       // show active player (1-based)
     cout << "=========================\n";                          // footer
@@ -77,4 +77,70 @@ void Manager::printLog() const {
     cout << "--- Recent Actions ---\n";                            // header
     for (const auto& s : log) cout << s << '\n';                   // each logged action
     cout << "----------------------\n";                             // footer
+}
+void Manager::runBattle() {
+    if (players.size() < 2) {
+        cout << "Error: Not enough players registered!\n";
+        return;
+    }
+
+    cout << "\n=== Battle Start! ===\n";
+    startGame();  // show initial HUD and reset turn
+
+    while (!checkVictory()) {
+        Player* me = current();
+        Player* foe = other();
+
+        cout << "\nIt's " << me->getName() << "'s turn.\n";
+        cout << "1. Attack\n2. Ability A\n3. Ability B\n4. Defend\n> ";
+
+        int choice;
+        cin >> choice;
+
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout << "Invalid input! Try again.\n";
+            continue;
+        }
+
+        bool acted = false;
+
+        switch (choice) {
+            case 1:
+                me->attack(foe);
+                pushLog(me->getName() + " attacked " + foe->getName());
+                acted = true;
+                break;
+            case 2:
+                if (me->abilityA(foe)) {
+                    pushLog(me->getName() + " used Ability A on " + foe->getName());
+                    acted = true;
+                }
+                break;
+            case 3:
+                if (me->abilityB(foe)) {
+                    pushLog(me->getName() + " used Ability B on " + foe->getName());
+                    acted = true;
+                }
+                break;
+            case 4:
+                me->defend();
+                pushLog(me->getName() + " defended");
+                acted = true;
+                break;
+            default:
+                cout << "Invalid option. Try again.\n";
+                break;
+        }
+
+        printHUD();  // show updated stats
+        printLog();  // show recent actions
+
+        if (checkVictory()) break;
+
+        if (acted) nextTurn();  // only switch turns if a valid action occurred
+    }
+
+    cout << "\n=== Battle Over ===\n";
 }

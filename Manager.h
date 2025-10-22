@@ -57,6 +57,9 @@ public:
 
     // METHOD: printLog renders the recent action lines for the player
     void printLog() const;
+
+    // METHOD: 
+    void runBattle();
 };
 
 #endif // MANAGER_H
