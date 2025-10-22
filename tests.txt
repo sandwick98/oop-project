@@ -1,0 +1,50 @@
+
+Normal Tests
+1. Wizard Fireball
+   Expected: Opponent HP decreases by 15, Mana decreases by 5.
+   Actual:   Opponent HP decreased by 15, Mana decreased by 5.
+
+2. Tank Charge
+   Expected: Opponent HP decreases by 12, Stamina decreases by 6.
+   Actual:   Opponent HP decreased by 12, Stamina decreased by 6.
+
+3. Shield Use
+   Expected: Next attack damage reduced, shield consumed after one use.
+   Actual:   Damage reduced on next attack, shield removed after use.
+
+4. Turn Alternation
+   Expected: Players alternate turns only after valid actions.
+   Actual:   Verified alternation occurs correctly after valid moves.
+
+Edge Case Tests
+1. Out of Mana
+   Expected: Ability fails gracefully with message, no damage dealt.
+   Actual:   Ability failed and displayed “lacks mana” message, no damage.
+
+2. Out of Stamina
+   Expected: Ability fails gracefully with message, no damage dealt.
+   Actual:   Ability failed and displayed “lacks stamina” message, no damage.
+
+3. Negative Damage
+   Expected: Negative damage ignored (HP unchanged).
+   Actual:   HP remained unchanged after negative damage test.
+
+4. HP Clamping
+   Expected: HP cannot exceed max HP (clamped to maximum).
+   Actual:   HP set to maximum limit successfully.
+
+5. Strength & Defense Clamping
+   Expected: Negative strength/defense reset to 0.
+   Actual:   Strength and defense clamped correctly to 0.
+
+6. KO Detection
+   Expected: Player marked as KO when HP <= 0, battle ends.
+   Actual:   KO detected correctly, battle stopped.
+
+7. Null Opponent
+   Expected: Ability handles nullptr safely (no crash).
+   Actual:   Functions returned false safely without crash.
+
+8. Invalid Input
+   Expected: Program catches invalid input and re-prompts user.
+   Actual:   Invalid input handled properly without crash.
