@@ -2,6 +2,7 @@
 #include <iostream>
 using namespace std;
 
+// spend stamina
 bool Tank::spendStamina(int cost) {
 if (stamina_ >= cost) { stamina_ -= cost; return true; }
 cout << getName() << " lacks stamina!\n";
@@ -44,4 +45,9 @@ void Tank::printState(ostream& os) {
 Player::printState(os);
 os << " STA:" << getStamina() << "/" << getMaxStamina()
 << (shield_active_ ? " [Shield]" : "");
+}
+
+// Show Tank's class type
+string Tank::type(){
+    return "Tank";
 }

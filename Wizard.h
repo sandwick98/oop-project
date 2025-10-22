@@ -23,6 +23,9 @@ int getMana() { return mana_; }
 int getMaxMana() { return max_mana_; }
 void setMana(int m) { mana_ = clamp(m, 0, max_mana_); }
 
+// class type
+string type();
+
 private:
 bool spendMana(int cost); // Helper to check & deduct mana cost
 };

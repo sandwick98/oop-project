@@ -16,7 +16,13 @@ class Warrior: public Melee{
 
     // ability B: heavier mace hit, costs more stamina
     void mace(Player* opponent);
-    ;
+    
+    // virtual override abilitya and b from player
+    bool abilityA(Player* opponent);
+    bool abilityB(Player* opponent);
+
+    // virtual override type
+    string type();
 };
 
 #endif

@@ -27,6 +27,9 @@ int getStamina() { return stamina_; }
 int getMaxStamina() { return max_stamina_; }
 void setStamina(int s) { stamina_ = clamp(s, 0, max_stamina_); }
 
+// set class type
+string type();
+
 private:
 bool spendStamina(int cost); // Helper to check stamina cost
 };

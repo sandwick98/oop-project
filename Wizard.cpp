@@ -33,3 +33,8 @@ void Wizard::printState(ostream& os) {
 Player::printState(os);
 os << " MANA:" << getMana() << "/" << getMaxMana();
 }
+
+// return class type
+string Wizard::type(){
+    return "Wizard";
+}
