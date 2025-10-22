@@ -13,7 +13,7 @@ int main() {
 
     for (int i = 1; i <= 2; i++) {
         cout << "Choose player " << i << " class:\n";
-        cout << "1. Warrior\n2. Tank\n3. Wizard\n4. Healer\n> ";
+        cout << "1. Warrior\n2. Tank\n3. Wizard\n4. Healer\n> "; 
 
         int choice;
         cin >> choice;
