@@ -31,7 +31,6 @@ virtual bool abilityB(Player* opponent) = 0; // Pure virtual
 virtual void defend() {}
 virtual void printState(ostream& os); // Readable HUD line
 virtual string type() = 0; // e.g., "Wizard", "Tank"
-virtual void save(ostream& out); // Writes common fields; subclass writes its own tail
 
 // Utility
 bool isKO()  {return hp_ <= 0;}
