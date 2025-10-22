@@ -19,13 +19,13 @@ private:
     // ATTRIBUTE: log views of the last few action strings 
     vector<string> log;
 
+public:
     // METHOD (helper): current returns pointer to the active player 
     Player* current() const { return players[turn]; }
 
     // METHOD (helper): other returns pointer to the opponent 
     Player* other()   const { return players[turn ^ 1]; }
-
-public:
+    
     // CONSTRUCTOR: default nothing to initialise beyond in-class defaults
     Manager() = default;
 
